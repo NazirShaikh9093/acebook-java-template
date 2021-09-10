@@ -36,4 +36,12 @@ public class User {
         this.password = password;
         this.enabled = enabled;
     }
+
+    public long getIDnumber() {
+        return this.id;
+    }
+
+    public String getUsername() {
+        return this.username;
+    }
 }

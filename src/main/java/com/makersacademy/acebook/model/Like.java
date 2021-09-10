@@ -16,12 +16,14 @@ public class Like {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int userID;
-    private int postID;
-    private int counter;
+    private long userID;
+    private long postID;
+    private long counter;
 
 
-    public Like(int userID) {
+    public Like(long userID, long postID, long counter) {
         this.userID = userID;
+        this.postID = postID;
+        this.counter = counter;
     }
 }
