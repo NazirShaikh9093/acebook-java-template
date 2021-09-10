@@ -61,6 +61,7 @@
                     </div>
                 </form>
                 </div>
+             
 
 
                 <ul th:each="post: ${posts}">
@@ -89,13 +90,19 @@
 
                                     <a href="#!" class="link-muted">
                                         <i class="far fa-comment-dots me-2" style="margin-top: -0.16rem;"></i>
+                                      <form action="#" th:action="@{/posts/comments}" method="get">
+                                      <input type="hidden" th:name="postid" th:value="${post.id}">
+                                      <input type="hidden" th:name="postContent" th:value="${post.content}">
+                                      <input type="submit" value="Comment">
+                                      </form>
+                                      
                                     </a>
 
                                     <a href="#!" class="link-muted">
                                         <form action="#" th:action="@{/posts/delete}" th:method="delete">
                                             <input type="hidden" name="_method" value="delete"/>
-                                            <input type="hidden" th:name="id" th:value="${post.id}"/>
-                                            <button type="submit" value="Delete" th:id="${post.id}"><i class="far fa-trash-alt me-1" style="margin-top: -0.16rem;"></i></button>
+                                            <input type="hidden" th:name="postid" th:value="${post.id}"/>
+                                            <button type="submit" value="Delete"><i class="far fa-trash-alt me-1" style="margin-top: -0.16rem;"></i></button>
                                         </form>
 <!--                                        <i class="far fa-trash-alt me-1" style="margin-top: -0.16rem;"></i>-->
                                     </a>
@@ -109,6 +116,7 @@
     </div>
 </div>
 </div>
-
 </body>
+
+
 </html>
