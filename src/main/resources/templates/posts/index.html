@@ -26,7 +26,11 @@
                     <a class="nav-link" href="/login">Login</a>
                 </li>
                 <li class="nav-item">
+                    <<<<<<< HEAD
+                    <a class="nav-link" href="/logout">Sign Out</a>
+                    =======
                     <a class="nav-link" href="/signout">Sign Out</a>
+                    >>>>>>> a267b7a9782f3aa60e3919d269e9f10c53b3921f
                 </li>
             </ul>
         </div>
@@ -52,16 +56,16 @@
         <div class="card shadow-0 border" style="background-color: #f0f2f5;">
             <div class="card-body p-4">
                 <div class="form-outline mb-4">
-                <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
-                    <input type="text" th:field="*{content}" placeholder="Write a post..." class="form-control"/>
+                    <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
+                        <input type="text" th:field="*{content}" placeholder="Write a post..." class="form-control"/>
 
-                    <div class="inputButtons"><input type="submit" value="Submit"/>
-                        <input type="reset" value="Reset"/>
-                        <input type="file" value="Choose Photo"/>
-                    </div>
-                </form>
+                        <div class="inputButtons"><input type="submit" value="Submit"/>
+                            <input type="reset" value="Reset"/>
+                            <input type="file" value="Choose Photo"/>
+                        </div>
+                    </form>
                 </div>
-             
+
 
 
                 <ul th:each="post: ${posts}">
@@ -89,13 +93,12 @@
                                     </div>
 
                                     <a href="#!" class="link-muted">
-                                        <i class="far fa-comment-dots me-2" style="margin-top: -0.16rem;"></i>
-                                      <form action="#" th:action="@{/posts/comments}" method="get">
-                                      <input type="hidden" th:name="postid" th:value="${post.id}">
-                                      <input type="hidden" th:name="postContent" th:value="${post.content}">
-                                      <input type="submit" value="Comment">
-                                      </form>
-                                      
+                                        <form action="#" th:action="@{/posts/comments}" method="get">
+                                            <input type="hidden" th:name="postid" th:value="${post.id}">
+                                            <input type="hidden" th:name="postContent" th:value="${post.content}">
+                                            <button type="submit" value="Comment"><i class="far fa-comment-dots me-2" style="margin-top: -0.16rem;"></i></button>
+                                        </form>
+
                                     </a>
 
                                     <a href="#!" class="link-muted">
@@ -104,7 +107,7 @@
                                             <input type="hidden" th:name="postid" th:value="${post.id}"/>
                                             <button type="submit" value="Delete"><i class="far fa-trash-alt me-1" style="margin-top: -0.16rem;"></i></button>
                                         </form>
-<!--                                        <i class="far fa-trash-alt me-1" style="margin-top: -0.16rem;"></i>-->
+                                        <!--                                        <i class="far fa-trash-alt me-1" style="margin-top: -0.16rem;"></i>-->
                                     </a>
                                 </div>
                             </div>
