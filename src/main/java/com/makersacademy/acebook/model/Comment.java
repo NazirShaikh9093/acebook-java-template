@@ -12,10 +12,18 @@ public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private int postid;
+    private long postid;
     private String content;
 
     public Comment() {}
 
     public Comment(String content) { this.content = content; }
+
+    public void addPostId(long postid) {
+        this.postid = postid;
+    }
+
+    public long getPostId() {
+        return this.postid;
+    }
 }

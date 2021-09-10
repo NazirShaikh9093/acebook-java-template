@@ -20,15 +20,16 @@
     </form>
 
     <ul th:each="post: ${posts}">
-        <li>
+        <li style="text-decoration=none">
             <p th:text="${post.content}">
             <form action="#" th:action="@{/posts/delete}" method="post">
                 <input type="hidden" name="_method" value="delete">
-                <input type="hidden" th:name="id" th:value="${post.id}">
-                <input type="submit" value="Delete" th:id="${post.id}"/> </p>
+                <input type="hidden" th:name="postid" th:value="${post.id}">
+                <input type="submit" value="Delete"/> </p>
             </form>
-            <form action="#" th:action="@{/posts/comment" method="get">
-                <input tyoe="hidden" name="postid" th:value="${post.id}">
+            <form action="#" th:action="@{/posts/comments}" method="get">
+                <input type="hidden" th:name="postid" th:value="${post.id}">
+                <input type="hidden" th:name="postContent" th:value="${post.content}">
                 <input type="submit" value="Comment">
             </form>
         </li>

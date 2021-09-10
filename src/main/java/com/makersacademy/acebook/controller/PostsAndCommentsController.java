@@ -9,7 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
+import org.thymeleaf.util.ArrayUtils;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -39,20 +41,53 @@ public class PostsAndCommentsController {
     }
 
     @DeleteMapping("/posts/delete")
-    public RedirectView delete(@RequestParam long id) {
-        postRepository.deleteById(id);
+    public RedirectView delete(@RequestParam long postid) {
+        postRepository.deleteById(postid);
+        deletePostRespectiveComments(postid);
         return new RedirectView("/posts");
     }
 
-    @GetMapping("/posts/comment")
-    public String comment(@RequestParam Long id, Model model) {
-        Iterable<Comment> comments = commentsRepository.findAllById(Collections.singleton(id));
-        Collections.reverse((List<?>) comments);
-        Optional<Post> post = postRepository.findById(id);
-        model.addAttribute("post", post);
+    @GetMapping("/posts/comments")
+    public String comment(@RequestParam long postid, @RequestParam String postContent, Model model) {
+        ArrayList<Comment> comments = getPostRespectiveComments(postid);
+        Collections.reverse(comments);
+        model.addAttribute("postContent", postContent);
         model.addAttribute("comments", comments);
         model.addAttribute("comment", new Comment());
-        model.addAttribute("id", id);
+        model.addAttribute("postid", postid);
         return "/posts/comments";
+    }
+
+    @PostMapping("/posts/comment")
+    public RedirectView newComment(@ModelAttribute Comment comment, @RequestParam long postid) {
+        comment.addPostId(postid);
+        commentsRepository.save(comment);
+        return new RedirectView("/posts");
+    }
+
+    @DeleteMapping("/comment/delete")
+    public RedirectView deleteComment(@RequestParam long commentid) {
+        commentsRepository.deleteById(commentid);
+        return new RedirectView("/posts");
+    }
+
+    public ArrayList<Comment> getPostRespectiveComments(long postid) {
+        Iterable<Comment> comments = commentsRepository.findAll();
+        ArrayList<Comment> foundComments = new ArrayList<>();
+        for (Comment comment: comments) {
+            if(comment.getPostId() == postid) {
+                foundComments.add(comment);
+            }
+        }
+        return foundComments;
+    }
+
+    public void deletePostRespectiveComments(long postid) {
+        Iterable<Comment> comments = commentsRepository.findAll();
+        for (Comment comment: comments) {
+            if(comment.getPostId() == postid) {
+                commentsRepository.delete(comment);
+            }
+        }
     }
 }
